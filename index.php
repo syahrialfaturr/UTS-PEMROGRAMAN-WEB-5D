@@ -10,8 +10,13 @@ declare(strict_types=1);
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 use App\Core\SessionManager;
+use App\Services\BookService;
 
 $user = SessionManager::user();
+$bookService = new BookService();
+$featuredBooks = array_slice($bookService->getAll(), 0, 4);
+$categories = $bookService->getAllCategories();
+$categoryMap = $bookService->getCategoryMap();
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -81,6 +86,81 @@ $user = SessionManager::user();
                         Daftar Sebagai Member
                     </a>
                 <?php endif; ?>
+            </div>
+        </section>
+
+        <!-- Kategori Populer -->
+        <section style="margin-top: 3rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">📁 Kategori E-Book</h2>
+                    <p style="color: var(--secondary); font-size: 0.9rem;">Pilih topik bidang minat yang ingin Anda pelajari</p>
+                </div>
+                <a href="catalog.php" class="nav-link" style="font-weight: 600;">Lihat Semua &rarr;</a>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                <?php foreach ($categories as $cat): ?>
+                    <a href="catalog.php?category=<?= urlencode($cat->getId()) ?>" class="filter-pill" style="padding: 0.6rem 1.25rem; font-size: 0.9rem;">
+                        📁 <?= e($cat->getName()) ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </section>
+
+        <!-- E-Book Unggulan Terbaru -->
+        <section style="margin-top: 3.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">📖 Rekomendasi E-Book Pilihan</h2>
+                    <p style="color: var(--secondary); font-size: 0.9rem;">Koleksi bacaan terpopuler untuk mahasiswa dan praktisi</p>
+                </div>
+                <a href="catalog.php" class="btn btn-outline btn-sm">Buka Seluruh Katalog &rarr;</a>
+            </div>
+
+            <div class="book-grid">
+                <?php foreach ($featuredBooks as $book): ?>
+                    <?php 
+                        $catName = $categoryMap[$book->getCategoryId()] ?? 'Umum';
+                        $coverImg = !empty($book->getCover()) ? $book->getCover() : 'assets/images/default-book.png';
+                    ?>
+                    <article class="book-card">
+                        <div class="book-card-cover-wrapper">
+                            <img 
+                                src="<?= e($coverImg) ?>" 
+                                alt="Sampul <?= e($book->getTitle()) ?>" 
+                                class="book-card-cover"
+                                onerror="this.src='assets/images/default-book.png';"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="book-card-body">
+                            <div class="book-card-category">
+                                📁 <?= e($catName) ?>
+                            </div>
+                            <h3 class="book-card-title">
+                                <a href="detail.php?id=<?= urlencode($book->getId()) ?>">
+                                    <?= e($book->getTitle()) ?>
+                                </a>
+                            </h3>
+                            <p class="book-card-author">
+                                ✍️ <?= e($book->getAuthor()) ?> &bull; 🗓️ <?= e((string)$book->getYear()) ?>
+                            </p>
+                            <p class="book-card-desc">
+                                <?= e($book->getDescription()) ?>
+                            </p>
+                            <div class="book-card-footer">
+                                <?php if ($book->isAvailable()): ?>
+                                    <span class="badge badge-available">● Tersedia</span>
+                                <?php else: ?>
+                                    <span class="badge badge-borrowed">● Dipinjam</span>
+                                <?php endif; ?>
+                                <a href="detail.php?id=<?= urlencode($book->getId()) ?>" class="btn btn-outline btn-sm">
+                                    Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
             </div>
         </section>
     </main>

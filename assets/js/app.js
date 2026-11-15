@@ -107,5 +107,86 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 4. Admin Book Form Validation & UX
+    const bookForm = document.getElementById('bookForm');
+    if (bookForm) {
+        const titleInput = document.getElementById('title');
+        const authorInput = document.getElementById('author');
+        const categorySelect = document.getElementById('category_id');
+        const yearInput = document.getElementById('year');
+        const descInput = document.getElementById('description');
+        const coverInput = document.getElementById('cover');
+        const coverPreview = document.getElementById('coverPreview');
+        const currentYear = new Date().getFullYear();
+
+        // Realtime Cover Preview
+        if (coverInput && coverPreview) {
+            coverInput.addEventListener('input', () => {
+                const val = coverInput.value.trim();
+                if (val) {
+                    coverPreview.src = val;
+                } else {
+                    coverPreview.src = '../assets/images/default-book.png';
+                }
+            });
+            coverPreview.addEventListener('error', () => {
+                coverPreview.src = '../assets/images/default-book.png';
+            });
+        }
+
+        bookForm.addEventListener('submit', (e) => {
+            let isValid = true;
+            let errorMsg = '';
+
+            if (!titleInput.value.trim() || titleInput.value.trim().length < 2) {
+                errorMsg = 'Judul e-book minimal harus memiliki 2 karakter.';
+                titleInput.focus();
+                isValid = false;
+            } else if (!authorInput.value.trim() || authorInput.value.trim().length < 2) {
+                errorMsg = 'Nama penulis minimal harus memiliki 2 karakter.';
+                authorInput.focus();
+                isValid = false;
+            } else if (!categorySelect.value) {
+                errorMsg = 'Silakan pilih kategori e-book.';
+                categorySelect.focus();
+                isValid = false;
+            } else if (!yearInput.value || parseInt(yearInput.value) < 1500 || parseInt(yearInput.value) > currentYear + 2) {
+                errorMsg = `Tahun terbit harus berupa angka yang valid (1500 - ${currentYear + 2}).`;
+                yearInput.focus();
+                isValid = false;
+            } else if (!descInput.value.trim() || descInput.value.trim().length < 5) {
+                errorMsg = 'Deskripsi e-book minimal harus memiliki 5 karakter.';
+                descInput.focus();
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+                alert('⚠️ Validasi Form: ' + errorMsg);
+            }
+        });
+    }
+
+    // 5. Global Action Confirmation (Hapus Buku / Kategori)
+    const deleteForms = document.querySelectorAll('.form-confirm-delete');
+    deleteForms.forEach((form) => {
+        form.addEventListener('submit', (e) => {
+            const itemName = form.getAttribute('data-item-name') || 'item ini';
+            const confirmed = confirm(`⚠️ Konfirmasi Penghapusan:\nApakah Anda yakin ingin menghapus "${itemName}"?\n\nData yang telah dihapus tidak dapat dipulihkan.`);
+            if (!confirmed) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // 6. Flash Alert Auto Dismiss (opsional setelah 6 detik)
+    const flashAlerts = document.querySelectorAll('.alert');
+    flashAlerts.forEach((alertEl) => {
+        setTimeout(() => {
+            alertEl.style.transition = 'opacity 0.5s ease';
+            alertEl.style.opacity = '0.4';
+        }, 6000);
+    });
 });
 
