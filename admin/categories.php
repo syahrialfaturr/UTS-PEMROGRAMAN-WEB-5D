@@ -93,7 +93,7 @@ $editCategory = $editId !== '' ? $bookService->getCategoryById($editId) : null;
             </div>
         </section>
 
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: flex-start;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; align-items: flex-start;">
             <!-- Kolom Kiri: Form Tambah / Edit Kategori -->
             <section class="card" style="padding: 1.75rem;">
                 <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);">

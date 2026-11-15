@@ -122,7 +122,7 @@ $flashError = SessionManager::getFlash('error');
             </small>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; align-items: start;">
             <!-- Kolom Informasi Pribadi -->
             <section class="card">
                 <div class="card-header" style="text-align: left;">
