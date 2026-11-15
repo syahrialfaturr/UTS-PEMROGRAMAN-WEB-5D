@@ -260,9 +260,12 @@ class LoanService
         if (!file_exists($path)) {
             return null; // akan dibuat saat insert
         }
-        if (!is_writable($path)) {
+        $fp = @fopen($path, 'a');
+        if ($fp === false) {
             return 'Berkas transaksi tidak dapat ditulis. Hubungi administrator.';
         }
+        fclose($fp);
+
         $raw = file_get_contents($path);
         if ($raw === false) {
             return 'Berkas transaksi tidak dapat dibaca.';

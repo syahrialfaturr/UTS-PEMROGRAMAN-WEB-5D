@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "id": "TRX-20261110-A1B2C3",
+        "user_id": "USR-002",
+        "book_id": "BOOK-003",
+        "borrowed_at": "2026-11-12 14:10:47",
+        "due_at": "2026-11-19 14:10:47",
+        "returned_at": null,
+        "status": "borrowed"
+    },
+    {
+        "id": "TRX-20261112-D4E5F6",
+        "user_id": "USR-002",
+        "book_id": "BOOK-008",
+        "borrowed_at": "2026-11-14 14:10:47",
+        "due_at": "2026-11-21 14:10:47",
+        "returned_at": null,
+        "status": "borrowed"
+    }
+]

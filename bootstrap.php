@@ -205,6 +205,31 @@ function ensure_initial_seed(): void
         ];
         file_put_contents($booksFile, json_encode($initialBooks, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
+
+    $transactionsFile = STORAGE_PATH . DIRECTORY_SEPARATOR . 'transactions.json';
+    if (!file_exists($transactionsFile) || filesize($transactionsFile) === 0 || trim((string)file_get_contents($transactionsFile)) === '[]') {
+        $initialTransactions = [
+            [
+                'id' => 'TRX-20261110-A1B2C3',
+                'user_id' => 'USR-002',
+                'book_id' => 'BOOK-003',
+                'borrowed_at' => date('Y-m-d H:i:s', strtotime('-3 days')),
+                'due_at' => date('Y-m-d H:i:s', strtotime('+4 days')),
+                'returned_at' => null,
+                'status' => 'borrowed',
+            ],
+            [
+                'id' => 'TRX-20261112-D4E5F6',
+                'user_id' => 'USR-002',
+                'book_id' => 'BOOK-008',
+                'borrowed_at' => date('Y-m-d H:i:s', strtotime('-1 days')),
+                'due_at' => date('Y-m-d H:i:s', strtotime('+6 days')),
+                'returned_at' => null,
+                'status' => 'borrowed',
+            ],
+        ];
+        file_put_contents($transactionsFile, json_encode($initialTransactions, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
 }
 
 // Pastikan seed data users.json tersedia
