@@ -126,19 +126,6 @@ $flashError = SessionManager::getFlash('error');
         <p>&copy; 2026 E-Library System. UTS Pemrograman Web — Informatika UMM.</p>
     </footer>
 
-    <script>
-        // Konfirmasi sebelum mengembalikan (validasi tetap di backend)
-        document.querySelectorAll('.form-confirm-return').forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                var name = form.dataset.itemName || 'e-book ini';
-                if (!window.confirm('Kembalikan "' + name + '" sekarang?')) {
-                    event.preventDefault();
-                    return;
-                }
-                var btn = form.querySelector('button[type="submit"]');
-                if (btn) { btn.disabled = true; btn.textContent = 'Memproses...'; }
-            });
-        });
-    </script>
+    <script src="../assets/js/app.js"></script>
 </body>
 </html>
