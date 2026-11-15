@@ -1,0 +1,12 @@
+# Ignore temporary session files
+storage/sessions/*
+!storage/sessions/.gitkeep
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
