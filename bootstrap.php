@@ -75,10 +75,15 @@ function redirect(string $url): never
 }
 
 /**
- * Helper untuk memastikan storage folder dan users.json tersedia dengan seed data awal.
+ * Helper untuk memastikan storage folder dan file seed data awal tersedia.
  */
 function ensure_initial_seed(): void
 {
+    $dir = STORAGE_PATH;
+    if (!is_dir($dir)) {
+        mkdir($dir, 0777, true);
+    }
+
     $usersFile = STORAGE_PATH . DIRECTORY_SEPARATOR . 'users.json';
     if (!file_exists($usersFile) || filesize($usersFile) === 0) {
         $initialUsers = [
@@ -99,12 +104,106 @@ function ensure_initial_seed(): void
                 'created_at' => date('Y-m-d H:i:s'),
             ],
         ];
-
-        $dir = dirname($usersFile);
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
         file_put_contents($usersFile, json_encode($initialUsers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
+
+    $categoriesFile = STORAGE_PATH . DIRECTORY_SEPARATOR . 'categories.json';
+    if (!file_exists($categoriesFile) || filesize($categoriesFile) === 0) {
+        $initialCategories = [
+            ['id' => 'CAT-001', 'name' => 'Rekayasa Perangkat Lunak & Web'],
+            ['id' => 'CAT-002', 'name' => 'Kecerdasan Buatan & Data Science'],
+            ['id' => 'CAT-003', 'name' => 'Jaringan Komputer & Keamanan Siber'],
+            ['id' => 'CAT-004', 'name' => 'Algoritma & Struktur Data'],
+            ['id' => 'CAT-005', 'name' => 'Sistem Informasi & Bisnis Digital'],
+        ];
+        file_put_contents($categoriesFile, json_encode($initialCategories, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
+
+    $booksFile = STORAGE_PATH . DIRECTORY_SEPARATOR . 'books.json';
+    if (!file_exists($booksFile) || filesize($booksFile) === 0) {
+        $initialBooks = [
+            [
+                'id' => 'BOOK-001',
+                'title' => 'Arsitektur PHP Modern: OOP, Design Patterns & Clean Code',
+                'author' => 'Rasmus Lerdorf & Martin Fowler',
+                'category_id' => 'CAT-001',
+                'year' => 2024,
+                'description' => 'Panduan mendalam arsitektur pemrograman berorientasi objek modern PHP 8.x, prinsip SOLID, pemisahan tanggung jawab, dan desain sistem modular tanpa ketergantungan framework.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => true,
+            ],
+            [
+                'id' => 'BOOK-002',
+                'title' => 'Dasar Pemrograman Web Interaktif: HTML5, CSS3 & JavaScript Vanilla',
+                'author' => 'Tim Laboratorium Informatika UMM',
+                'category_id' => 'CAT-001',
+                'year' => 2025,
+                'description' => 'Buku referensi lengkap membangun antarmuka web modern dengan elemen semantik HTML5, CSS responsif fleksibel, serta manipulasi DOM dan validasi form interaktif vanilla JavaScript.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => true,
+            ],
+            [
+                'id' => 'BOOK-003',
+                'title' => 'Machine Learning Praktis: Konsep dan Penerapan Nyata',
+                'author' => 'Dr. Andrew Ng & Tim AI',
+                'category_id' => 'CAT-002',
+                'year' => 2024,
+                'description' => 'Pembahasan komprehensif algoritma Supervised Learning, Unsupervised Learning, evaluasi model, dan implementasi pipeline kecerdasan buatan untuk studi kasus industri.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => false,
+            ],
+            [
+                'id' => 'BOOK-004',
+                'title' => 'Deep Learning dan Representasi Neural Networks',
+                'author' => 'Ian Goodfellow & Yoshua Bengio',
+                'category_id' => 'CAT-002',
+                'year' => 2023,
+                'description' => 'Teori dan matematika fundamental jaringan syaraf tiruan, backpropagation, CNN untuk pemrosesan citra, RNN/Transformer untuk NLP, dan generative models.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => true,
+            ],
+            [
+                'id' => 'BOOK-005',
+                'title' => 'Keamanan Jaringan Komputer dan Ethical Hacking',
+                'author' => 'Kevin Mitnick & Bruce Schneier',
+                'category_id' => 'CAT-003',
+                'year' => 2024,
+                'description' => 'Eksplorasi teknik analisis kerentanan sistem jaringan, kriptografi praktis, pertahanan terhadap serangan siber, dan audit keamanan berlapis.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => true,
+            ],
+            [
+                'id' => 'BOOK-006',
+                'title' => 'Struktur Data dan Analisis Kompleksitas Algoritma',
+                'author' => 'Thomas H. Cormen & Ronald Rivest',
+                'category_id' => 'CAT-004',
+                'year' => 2023,
+                'description' => 'Rujukan utama analisis algoritma, notasi Big-O, struktur data pohon (trees), graf (graphs), divide-and-conquer, dan pemrograman dinamis berkinerja tinggi.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => true,
+            ],
+            [
+                'id' => 'BOOK-007',
+                'title' => 'Analisis dan Perancangan Sistem Informasi Berorientasi Objek',
+                'author' => 'Grady Booch & James Rumbaugh',
+                'category_id' => 'CAT-005',
+                'year' => 2022,
+                'description' => 'Metodologi perancangan perangkat lunak enterprise dengan UML, diagram alur sistem, perancangan database relasional, dan manajemen proyek sistem informasi terpadu.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => true,
+            ],
+            [
+                'id' => 'BOOK-008',
+                'title' => 'UI/UX Design Thinking untuk Aplikasi Web Modern',
+                'author' => 'Don Norman & Steve Krug',
+                'category_id' => 'CAT-001',
+                'year' => 2025,
+                'description' => 'Prinsip-prinsip desain pengalaman pengguna, aksesibilitas (a11y), usability testing, perancangan antarmuka intuitif, dan kepuasan interaksi pengguna.',
+                'cover' => 'assets/images/default-book.png',
+                'available' => false,
+            ],
+        ];
+        file_put_contents($booksFile, json_encode($initialBooks, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 }
 

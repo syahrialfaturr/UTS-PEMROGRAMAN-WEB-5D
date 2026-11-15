@@ -12,6 +12,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 use App\Core\SessionManager;
 use App\Models\User;
 use App\Services\AuthService;
+use App\Services\BookService;
 
 // Gatekeeper Proteksi Akses: Hanya Administrator yang diizinkan!
 // Jika member mencoba masuk, akan dialihkan ke dashboard member
@@ -19,6 +20,10 @@ SessionManager::requireRole('admin', '../member/dashboard.php');
 
 $currentUserSession = SessionManager::user();
 $authService = new AuthService();
+$bookService = new BookService();
+
+$totalBooks = count($bookService->getAll());
+$totalCategories = count($bookService->getAllCategories());
 
 // Demonstrasi Polimorfisme: Instansiasi objek bertipe parent User
 /** @var User|null $adminModel */
@@ -95,22 +100,39 @@ $flashError = SessionManager::getFlash('error');
                 </small>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 1.5rem;">
+                <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: var(--radius-sm); background: #ffffff; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 0.95rem; color: var(--secondary);">Total Koleksi E-Book</h3>
+                        <span style="font-size: 1.5rem;">📚</span>
+                    </div>
+                    <p style="font-size: 1.85rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0;">
+                        <?= $totalBooks ?>
+                    </p>
+                    <a href="books.php" class="nav-link" style="font-size: 0.85rem; font-weight: 600;">Kelola Katalog &rarr;</a>
+                </div>
+
+                <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: var(--radius-sm); background: #ffffff; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 0.95rem; color: var(--secondary);">Kategori E-Book</h3>
+                        <span style="font-size: 1.5rem;">📁</span>
+                    </div>
+                    <p style="font-size: 1.85rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0;">
+                        <?= $totalCategories ?>
+                    </p>
+                    <a href="categories.php" class="nav-link" style="font-size: 0.85rem; font-weight: 600;">Kelola Kategori &rarr;</a>
+                </div>
+
                 <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: var(--radius-sm); background: #fafafa;">
-                    <h3 style="font-size: 1rem; color: var(--secondary);">Wewenang Kelola Buku</h3>
+                    <h3 style="font-size: 0.95rem; color: var(--secondary);">Wewenang Kelola Buku</h3>
                     <p style="font-size: 1.1rem; font-weight: 700; color: var(--success); margin-top: 0.5rem;">
                         <?= ($adminModel instanceof \App\Models\Admin && $adminModel->canManageBooks()) ? 'Tersedia (Aktif)' : 'Nonaktif' ?>
                     </p>
                 </div>
+
                 <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: var(--radius-sm); background: #fafafa;">
-                    <h3 style="font-size: 1rem; color: var(--secondary);">Wewenang Kelola Member</h3>
-                    <p style="font-size: 1.1rem; font-weight: 700; color: var(--success); margin-top: 0.5rem;">
-                        <?= ($adminModel instanceof \App\Models\Admin && $adminModel->canManageMembers()) ? 'Tersedia (Aktif)' : 'Nonaktif' ?>
-                    </p>
-                </div>
-                <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: var(--radius-sm); background: #fafafa;">
-                    <h3 style="font-size: 1rem; color: var(--secondary);">Admin Terotentikasi</h3>
-                    <p style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-top: 0.5rem;"><?= e($currentUserSession['email']) ?></p>
+                    <h3 style="font-size: 0.95rem; color: var(--secondary);">Admin Terotentikasi</h3>
+                    <p style="font-size: 1rem; font-weight: 600; color: var(--text-main); margin-top: 0.5rem; word-break: break-all;"><?= e($currentUserSession['email']) ?></p>
                 </div>
             </div>
         </section>

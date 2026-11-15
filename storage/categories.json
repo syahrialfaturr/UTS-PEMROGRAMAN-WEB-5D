@@ -1,0 +1,22 @@
+[
+    {
+        "id": "CAT-001",
+        "name": "Rekayasa Perangkat Lunak & Web"
+    },
+    {
+        "id": "CAT-002",
+        "name": "Kecerdasan Buatan & Data Science"
+    },
+    {
+        "id": "CAT-003",
+        "name": "Jaringan Komputer & Keamanan Siber"
+    },
+    {
+        "id": "CAT-004",
+        "name": "Algoritma & Struktur Data"
+    },
+    {
+        "id": "CAT-005",
+        "name": "Sistem Informasi & Bisnis Digital"
+    }
+]
