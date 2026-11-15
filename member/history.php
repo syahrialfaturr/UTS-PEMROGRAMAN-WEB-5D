@@ -48,6 +48,7 @@ foreach ($bookService->getAll() as $book) {
                 <li><a href="dashboard.php" class="nav-link">Dashboard</a></li>
                 <li><a href="loans.php" class="nav-link">Pinjaman Saya</a></li>
                 <li><a href="history.php" class="nav-link active" aria-current="page">Riwayat</a></li>
+                <li><a href="profile.php" class="nav-link">Profil</a></li>
                 <li><span class="user-badge">👤 <?= e($currentUser['name']) ?></span></li>
                 <li><a href="../logout.php" class="btn btn-outline btn-sm">Keluar</a></li>
             </ul>
