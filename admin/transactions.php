@@ -147,5 +147,7 @@ foreach ($authService->getAllUsers() as $user) {
     <footer class="footer">
         <p>&copy; 2026 E-Library System. UTS Pemrograman Web — Informatika UMM.</p>
     </footer>
+
+    <script src="../assets/js/app.js"></script>
 </body>
 </html>
