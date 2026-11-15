@@ -1,0 +1,18 @@
+[
+    {
+        "id": "USR-001",
+        "name": "Administrator E-Library",
+        "email": "admin@example.com",
+        "password": "$2y$10$y3\/OnR.oqkhJzloGwWFSaObPNgnHtz4IVA\/9nGFLaDv8RzCMeOrwW",
+        "role": "admin",
+        "created_at": "2026-11-15 12:14:04"
+    },
+    {
+        "id": "USR-002",
+        "name": "Syahrial Member",
+        "email": "member@example.com",
+        "password": "$2y$10$CJiEeLQtm3LFbBRFUWJyqehNnUwNqssgHWp3qqRRvKRmYCqndHqu6",
+        "role": "member",
+        "created_at": "2026-11-15 12:14:04"
+    }
+]
