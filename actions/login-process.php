@@ -40,3 +40,4 @@ if ($result['success']) {
     SessionManager::setFlash('error', $result['message']);
     redirect('../login.php');
 }
+

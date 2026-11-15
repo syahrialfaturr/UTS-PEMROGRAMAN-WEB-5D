@@ -275,3 +275,4 @@ class AuthService
         return new Member($id, $name, $email, $password, $loanLimit);
     }
 }
+

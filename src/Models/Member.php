@@ -68,3 +68,4 @@ class Member extends User
         return $data;
     }
 }
+

@@ -20,3 +20,4 @@ SessionManager::start();
 SessionManager::setFlash('success', 'Anda telah berhasil keluar dari akun.');
 
 redirect('login.php');
+

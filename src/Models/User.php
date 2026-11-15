@@ -104,3 +104,4 @@ abstract class User
      */
     abstract public function getRoleDescription(): string;
 }
+

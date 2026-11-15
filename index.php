@@ -92,3 +92,4 @@ $user = SessionManager::user();
 
 </body>
 </html>
+

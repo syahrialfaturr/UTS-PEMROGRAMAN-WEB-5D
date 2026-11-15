@@ -123,3 +123,4 @@ $flashError = SessionManager::getFlash('error');
 
 </body>
 </html>
+

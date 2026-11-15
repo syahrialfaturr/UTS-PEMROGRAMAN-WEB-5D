@@ -39,3 +39,4 @@ if ($result['success']) {
     SessionManager::setFlash('error', $errorMessage);
     redirect('../register.php');
 }
+

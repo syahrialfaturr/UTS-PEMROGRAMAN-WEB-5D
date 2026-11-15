@@ -51,3 +51,4 @@ class Admin extends User
         return 'Administrator E-Library: Pengelola sistem dengan wewenang penuh atas katalog e-book, kategori, data pengguna, dan seluruh transaksi.';
     }
 }
+

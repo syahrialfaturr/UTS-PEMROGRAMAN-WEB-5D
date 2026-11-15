@@ -166,3 +166,4 @@ class JsonStorage
         return $this->filePath;
     }
 }
+
